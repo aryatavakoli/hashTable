@@ -22,7 +22,7 @@ public:
     }
 
 private:
-    int val = 0;
+    Val str = 0;
     std::unique_ptr<Node> next = nullptr;
 };
 
@@ -55,9 +55,6 @@ private:
 
     //Unique Pointer to Head
     unique_ptr<Node> head;
-
-    //Oberserving Pointer to tail
-    Node * tail;
 };
 
 #endif
