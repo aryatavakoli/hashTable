@@ -2,16 +2,16 @@
 // Created by Arya on 2016-11-06.
 //
 #include "LinkedList.h"
-LinkedList::LinkedList() 
-{
-	head = nullptr;
-	length = 0;
-}
+//LinkedList::LinkedList()
+//{
+//	head = nullptr;
+//    listSize = 0;
+//}
 
 LinkedList::LinkedList(const LinkedList &ll)
 {
 	head = nullptr;
-    count = 0;
+    listSize = 0;
     //initialize all member variables
     Node * temp = ll.head.get();
 
@@ -25,7 +25,7 @@ LinkedList::LinkedList(const LinkedList &ll)
 
 LinkedList::~LinkedList()
 {
-	Node * temp = ll.head.get();
+	Node * temp = head.get();
 	while (temp != nullptr)
     {
         remove(temp->str);
@@ -33,7 +33,7 @@ LinkedList::~LinkedList()
     }
 }
 
-LinkedList::LinkedList &operator=(const LinkedList &ll)
+LinkedList& LinkedList::operator=(const LinkedList &ll)
 {
 	Node * temp = ll.head.get();
 	while (temp != nullptr)
@@ -56,17 +56,26 @@ LinkedList::LinkedList &operator=(const LinkedList &ll)
   return *this;
 }
 
-LinkedList::empty()
+bool LinkedList::empty() const
 {
-	if(listSize == 0)
-	{
-		return True
-	}
-	return False
+    return listSize == 0;
 }
 
- bool add(const Val &v)
- {
+vector<Val> LinkedList::get() const
+{
+    vector<Val> stringSet;
+
+    auto obs = head.get();
+    while(obs != nullptr)
+    {
+        stringSet.push_back(obs->str);
+        obs = obs->next.get();
+    }
+    return stringSet;
+}
+
+bool LinkedList::add(const Val &v)
+{
  	//Create New Node
 	unique_ptr<Node> new_Node {make_unique<Node>(v)};
 
@@ -74,24 +83,91 @@ LinkedList::empty()
 	if (empty())
 	{
         //front = back = new_Node;
-        head -> next = move(newItem);
+        head = move(new_Node);
+        head->next = nullptr;
         listSize++;
-        return True;
+        return true;
     }
 
 	else
 	{
-		temp = head.get();
+        Node * current = head.get();
+		auto obs = head.get();
 
-		while(temp != nullptr)
+
+		while(obs != nullptr)
 		{
-        	temp = temp->next.get();
+            current = obs;
+        	obs = current->next.get();
 		}
 
-		new_Node->next = move(temp);
-        temp = move(new_Node);
+        current->next = move(new_Node);
 	}
 
 	listSize++;
-	return True;
- }
+    return true;
+}
+
+bool LinkedList::remove(const Val &v)
+{
+    if ( empty())
+    {
+        return false;
+    }
+
+    if(!search(v))
+    {
+        return  false;
+    }
+
+    Node * previouselement = head.get();
+    Node * currentelement = head.get();
+
+    while(currentelement!=nullptr)
+    {
+        if (currentelement->str == v)
+        {
+            previouselement->next = move(currentelement->next);
+            listSize--;
+            return true;
+        }
+        previouselement = currentelement;
+        currentelement = currentelement->next.get();
+    }
+    return false;
+}
+
+bool LinkedList::search(const Val &v) const
+{
+    auto obs = head.get();
+    while(obs != nullptr)
+    {
+        if(obs->str == v)
+        {
+            return true;
+        }
+        obs = obs->next.get();
+    }
+    return false;
+}
+
+void LinkedList::printList() const
+{
+    auto obs = head.get();
+    cout << ( "front->" ) ;
+    while ( obs != nullptr )
+    {
+        if ( obs -> next == nullptr )
+        {
+            cout << " " <<( obs -> str ) << " " ;
+        }
+        else
+        {
+            cout << " " <<( obs -> str ) << " " ;
+            cout<< ("->");
+        }
+        obs = obs->next.get();
+    }
+    cout << "<-back\n" ;
+    cout << ( "\n" ) ;
+}

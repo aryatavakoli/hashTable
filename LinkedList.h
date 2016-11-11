@@ -4,26 +4,33 @@
 #include <memory>
 #include <string>
 #include <vector>
+#include <iostream>
 
 using Val = std::string;
+using std::unique_ptr;
+using std::make_unique;
+using std::move;
+using std::cout;
+using std::endl;
+using std::vector;
 
 //Node Class
 class Node {
     friend class LinkedList;
 public:
-    Node(const Node& n) : val{n.val}, next{}
+    Node(const Node& n) : str{n.str}, next{}
     {
     }
-    Node(int v, std::unique_ptr<Node> n) : val{v}, next{move(n)}
+    Node(Val v, std::unique_ptr<Node> n) : str{v}, next{move(n)}
     {
     }
-    Node(int v) : val{v}
+    Node(Val v) : str{v}
     {
     }
 
 private:
     Val str = 0;
-    std::unique_ptr<Node> next = nullptr;
+    unique_ptr<Node> next = nullptr;
 };
 
 //LinkedList Class
@@ -45,7 +52,7 @@ public:
 
     bool empty() const;
 
-    std::vector<Val> get() const;
+    vector<Val> get() const;
 
     void printList() const;
 
