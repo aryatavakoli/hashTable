@@ -128,6 +128,7 @@ bool LinkedList::remove(const Val &v)
         if (currentelement->str == v)
         {
             previouselement->next = move(currentelement->next);
+            delete(currentelement);
             listSize--;
             return true;
         }
