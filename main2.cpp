@@ -36,13 +36,13 @@ void linkedListTest()
     ll.add("Bonjour");
     ll.printList();
 
-    cout << "Removing Hello" << endl;
-    //ll.remove("Hello");
+    cout << "Removing Bonjour" << endl;
+    ll.remove("Bonjour");
     ll.printList();
 
-    cout << "Testing Copy Constructor" << endl;
-    auto ll2 = ll;
-    ll2.printList();
+//    cout << "Testing Copy Constructor" << endl;
+//    auto ll2 = ll;
+//    ll2.printList();
 }
 
 int main()

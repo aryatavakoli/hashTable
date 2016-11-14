@@ -120,7 +120,7 @@ bool LinkedList::remove(const Val &v)
         return  false;
     }
 
-    Node * previouselement = head.get();
+    Node * previouselement = nullptr;
     Node * currentelement = head.get();
 
     while(currentelement!=nullptr)
@@ -128,7 +128,6 @@ bool LinkedList::remove(const Val &v)
         if (currentelement->str == v)
         {
             previouselement->next = move(currentelement->next);
-            delete(currentelement);
             listSize--;
             return true;
         }
