@@ -22,6 +22,7 @@ void printVec(const vector<string>& vec) {
 
 void linkedListTest()
 {
+    cout << "Creating ll1" << endl;
     auto ll = LinkedList{};
 
     cout << "Adding Hello" << endl;
@@ -36,13 +37,41 @@ void linkedListTest()
     ll.add("Bonjour");
     ll.printList();
 
-    cout << "Removing Bonjour" << endl;
-    ll.remove("Bonjour");
+    cout << "Adding Hi" << endl;
+    ll.add("Hi");
     ll.printList();
 
-//    cout << "Testing Copy Constructor" << endl;
-//    auto ll2 = ll;
-//    ll2.printList();
+    cout << "Adding Welcome" << endl;
+    ll.add("Welcome");
+    ll.printList();
+
+
+    cout << "Removing Hello" << endl;
+    ll.remove("Hello");
+    ll.printList();
+
+    cout << "Testing Copy Constructor ll2" << endl;
+    auto ll2 = ll;
+    ll2.printList();
+
+    cout << "Creating ll3" << endl;
+    auto ll3 = LinkedList{};
+
+    cout << "Adding Apple" << endl;
+    ll3.add("Apple");
+    ll3.printList();
+
+    cout << "Adding Carrot" << endl;
+    ll3.add("Carrot");
+    ll3.printList();
+
+    cout << "Adding Lettuce" << endl;
+    ll3.add("Lettuce");
+    ll3.printList();
+
+    cout << "Testing Copy Assigment" << endl;
+    ll2 = ll3;
+    ll2.printList();
 }
 
 int main()
