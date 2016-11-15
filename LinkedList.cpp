@@ -25,35 +25,39 @@ LinkedList::LinkedList(const LinkedList &ll)
 
 LinkedList::~LinkedList()
 {
-	Node * temp = head.get();
-	while (temp != nullptr)
+    Node * currentNode = head.get();
+    Node * nextNode;
+
+    while (currentNode != nullptr)
     {
-        remove(temp->str);
-        temp = temp->next.get();
+        nextNode = currentNode->next.get();
+        remove(currentNode->str);
+        currentNode = nextNode;
     }
+
 }
 
 LinkedList& LinkedList::operator=(const LinkedList &ll)
 {
-	Node * temp = head.get();
+	Node * currentNode = head.get();
+    Node * nextNode;
 
-	while (temp != nullptr)
+	while (currentNode != nullptr)
     {
-
-        remove(temp->str);
-        temp = temp->next.get();
-
+        nextNode = currentNode->next.get();
+        remove(currentNode->str);
+        currentNode = nextNode;
     }
 
     //initialize all member variables
-    Node * temp2 = ll.head.get();
+    currentNode = ll.head.get();
 
     //copy all the nodes from the source
-    while(temp2 != nullptr)
+    while(currentNode != nullptr)
     {
         // and add them using add()
-        add(temp2->str);
-        temp2 = temp2->next.get();
+        add(currentNode->str);
+        currentNode = currentNode->next.get();
     }
 
   return *this;
