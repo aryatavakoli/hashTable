@@ -53,43 +53,43 @@ void linkedListTest() {
   cout << endl << "End LinkedList tests" << endl << endl;
 }
 //
-//void hashTableTest()
-//{
-//  cout << "Start HashTable tests" << endl;
-//
-//  cout << "Default capacity " << HashTable::defaultCapacity << endl;
-//
-//  HashTable ht0 {}; // Default constructor; also (implied) destructor
-//  cout << "Default table size: " << ht0.size() << ", capacity: " << ht0.capacity() << endl; // size and capacity
-//  HashTable ht1 {9}; // Constructor specifying number of items
-//  ht1.add("bat"); // add
-//  ht1.add("cat");
-//  ht1.add("rhinoceros");
-//  ht1.add("ocelot");
-//  ht1.add("elephant");
-//  ht1.add("hippopotamus");
-//  ht1.add("giraffe");
-//  ht1.add("camel");
-//  ht1.add("lion");
-//  ht1.add("panther");
-//  ht1.add("bear");
-//  ht1.add("wolf");
-//
+void hashTableTest()
+{
+  cout << "Start HashTable tests" << endl;
+
+  cout << "Default capacity " << HashTable::defaultCapacity << endl;
+
+  HashTable ht0 {}; // Default constructor; also (implied) destructor
+  cout << "Default table size: " << ht0.size() << ", capacity: " << ht0.capacity() << endl; // size and capacity
+  HashTable ht1 {9}; // Constructor specifying number of items
+  ht1.add("bat"); // add
+  ht1.add("cat");
+  ht1.add("rhinoceros");
+  ht1.add("ocelot");
+  ht1.add("elephant");
+  ht1.add("hippopotamus");
+  ht1.add("giraffe");
+  ht1.add("camel");
+  ht1.add("lion");
+  ht1.add("panther");
+  ht1.add("bear");
+  ht1.add("wolf");
+
 //  cout << "Load factor (should be around 63%): " << ht1.loadFactor() << endl; // loadFactor
-//
-//  // Test search
-//  cout << endl << "Search examples" << endl;
-//  string test1 = "frog";
-//  string test2 = "camel";
+
+  // Test search
+  cout << endl << "Search examples" << endl;
+  string test1 = "frog";
+  string test2 = "camel";
 //  cout << test1 << " (should be 0): " << ht1.search(test1) << endl;
 //  cout << test2 << " (should be 1): " << ht1.search(test2) << endl;
-//
-//  // Test copy constructor and remove
+
+  // Test copy constructor and remove
 //  HashTable ht2 {ht1};
 //  ht2.remove("ocelot");
 //  ht2.remove("camel");
 //  ht2.remove("rhinoceros");
-//
+
 //  cout << endl;
 //  ht2.printTable("Test of printTable---whatever your output is"); // printTable
 //
@@ -97,8 +97,8 @@ void linkedListTest() {
 //
 //  HashTable ht3 {};
 //  ht3 = ht1; // Copy assignment
-//
-//  // Test set union
+
+  // Test set union
 //  ht2.add("kraken");
 //  HashTable un = ht1.setunion(ht2);
 //  vector<string> unionKeys = un.keys();
@@ -107,17 +107,17 @@ void linkedListTest() {
 //  cout << "bat bear camel cat elephant giraffe hippopotamus kraken lion ocelot panther rhinoceros wolf" << endl;
 //  cout << "Result was:" << endl;
 //  printVec(unionKeys);
-//
-//  cout << endl << "Hash of \"Hello\" (should be 15263440): " << HashTable::hash("Hello") << endl;
-//
+
+  cout << endl << "Hash of \"Hello\" (should be 15263440): " << HashTable::hash("Hello") << endl;
+
 //  cout << endl << "Compress of 15263440 for ht1 (should be 18) " << ht1.compress(std::uint32_t(15263440U)) << endl;
-//
-//  cout << endl << "End HashTable tests" << endl;
-//}
+
+  cout << endl << "End HashTable tests" << endl;
+}
 
 int main()
 {
   linkedListTest();
-  //hashTableTest();
+  hashTableTest();
   return 0;
 }

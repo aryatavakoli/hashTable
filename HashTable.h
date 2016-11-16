@@ -2,15 +2,27 @@
 #define HASH_TABLE_H
 
 #include <cstdint>
+#include <stdexcept>
+#include <cctype>
 #include <memory>
 #include <string>
 #include <vector>
-#include <memory>
-
-using std::unique_ptr;
-using std::make_unique;
+#include <iostream>
 
 #include "LinkedList.h"
+
+using std::string;
+using std::unique_ptr;
+using std::make_unique;
+using std::move;
+using std::cout;
+using std::endl;
+using std::vector;
+using std::invalid_argument;
+using std::uint32_t;
+using std::size_t;
+using std::tolower;
+using std::isalpha;
 
 class HashTable {
 public:
@@ -34,25 +46,27 @@ public:
 
     int capacity() const;
 
-    std::vector<Val> keys() const;
+    vector<Val> keys() const;
 
     float loadFactor() const;
 
     HashTable setunion(const HashTable &ht) const;
 
-    static std::uint32_t hash(const Val &key);
+    static uint32_t hash(const Val &key);
 
-    std::size_t compress(std::uint32_t hash) const;
+    size_t compress(uint32_t hash) const;
 
     constexpr static int defaultCapacity{101};
 
-    void printTable(const std::string &label) const;
+    void printTable(const string &label) const;
 
 private:
     // Add your member variables and any private member functions here
+    bool isPrime( int n );
     int hashSize = 0;
+    int underlyingCapcity = 0;
     int maxSize = {defaultCapacity};
-    unique_ptr<LinkedList[]> array{make_unique<LinkedList[]>(maxSize)};
+    unique_ptr<LinkedList[]> array;
 };
 
 #endif

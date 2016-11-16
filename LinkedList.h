@@ -6,13 +6,15 @@
 #include <vector>
 #include <iostream>
 
-using Val = std::string;
+using std::string;
 using std::unique_ptr;
 using std::make_unique;
 using std::move;
 using std::cout;
 using std::endl;
 using std::vector;
+
+using Val = string;
 
 //Node Class
 class Node {
