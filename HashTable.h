@@ -8,6 +8,7 @@
 #include <string>
 #include <vector>
 #include <iostream>
+#include <cstddef>
 
 #include "LinkedList.h"
 
@@ -23,6 +24,7 @@ using std::uint32_t;
 using std::size_t;
 using std::tolower;
 using std::isalpha;
+using std::size_t;
 
 class HashTable {
 public:

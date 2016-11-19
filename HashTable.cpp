@@ -61,6 +61,11 @@ uint32_t hornerRule(uint32_t  poly[], auto degree , auto val) //val is going to 
     return result;
 }
 
+size_t HashTable::compress(uint32_t hash) const
+{
+    return hash % underlyingCapcity;
+}
+
 uint32_t HashTable::hash(const Val &key)
 {
     uint32_t coefficients[key.length()] = {};
@@ -79,30 +84,42 @@ uint32_t HashTable::hash(const Val &key)
     return result;
 }
 
-//bool HashTable::search(const Val &v)
-//{
-////    if(!isalpha(v))
-////    {
-////        throw invalid_argument("Invalid string");
-////    }
-//
-//    int index = hash( v );
-//    auto result = array[index].search(v);
-//
-//    return result;
-//}
+bool isString(const Val &v)
+{
+    for (int i = 0; i < v.length() ; ++i)
+    {
+        if(!isalpha(v[i]))
+        {
+            return false;
+        }
+    }
+    return true;
+}
+
+bool HashTable::search(const Val &v)
+{
+    if(!isString(v))
+    {
+        throw invalid_argument("Invalid string");
+    }
+
+    int index = hash( v );
+    auto result = array[index].search(v);
+
+    return result;
+}
 
 bool HashTable::add(const Val &v)
 {
-//    if(!isalpha(v))
-//    {
-//        throw invalid_argument("Invalid string");
-//    }
+    if(!isString(v))
+    {
+        throw invalid_argument("Invalid string");
+    }
 
-//    if(search(v))
-//    {
-//        throw invalid_argument("String Not Found");
-//    }
+    if(search(v))
+    {
+        throw invalid_argument("String Not Found");
+    }
 
     int index = hash(v);
     array[index].add( v );
@@ -115,15 +132,15 @@ bool HashTable::add(const Val &v)
 
 bool HashTable::remove(const Val &v)
 {
-//    if(!isalpha(v))
-//    {
-//        throw invalid_argument("Invalid string");
-//    }
+    if(!isString(v))
+    {
+        throw invalid_argument("Invalid string");
+    }
 
-//    if(search(v))
-//    {
-//        throw invalid_argument("String Not Found");
-//    }
+    if(search(v))
+    {
+        throw invalid_argument("String Not Found");
+    }
 
     if(size() == 0)
     {
