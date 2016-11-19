@@ -37,14 +37,13 @@ HashTable::HashTable(int c)
         throw invalid_argument("Invalid number of Items ");
     }
 
-    maxSize = (2 * c);
+    maxSize = (2 * c)+1;
 
-    while(!isPrime(maxSize))
+    if(!isPrime(maxSize))
     {
-        maxSize++;
+        throw invalid_argument("Not a Prime Number ");
     }
 
-    cout << "Prime Number Greater than 2n = " << maxSize << endl;
     array = {make_unique<LinkedList[]>(maxSize)};
     hashSize = 0;
 }
@@ -65,33 +64,33 @@ uint32_t hornerRule(uint32_t  poly[], auto degree , auto val) //val is going to 
 uint32_t HashTable::hash(const Val &key)
 {
     uint32_t coefficients[key.length()] = {};
-    auto  degree = key.length();
+    auto degree = key.length();
     auto val = 37;
-    uint32_t ASCII = 96;
+    unsigned int ASCII = 96;
     uint32_t result;
 
     for (int i = 0; i < key.length(); i++)
     {
         coefficients[i] = tolower(key[i]) - ASCII;
     }
+    cout << endl;
+    cout << "Coeffiecent of " << key <<" ";
+    for (int j = 0; j < degree ; ++j)
+    {
+        cout << coefficients[j] << ",";
+    }
 
-//    cout << "Coeffiecent of = " << key <<" ";
-//    for (int j = 0; j < degree ; ++j)
-//    {
-//        cout << coefficients[j] << ",";
-//    }
-
-    //cout << "\n";
+    cout << "\n";
     result = hornerRule(coefficients, degree , val);
 
-    //cout << "Hash Value of " << key << " = " << result << endl;
+    cout << "Hash Value of " << key << " = " << result << endl;
 
     return result;
 }
 
 size_t HashTable::compress(uint32_t hash) const
 {
-    if (size() == 0)
+    if(size() == 0)
     {
         return hash % 1;
     }
@@ -133,15 +132,21 @@ bool HashTable::add(const Val &v)
 
     if(search(v))
     {
-        throw invalid_argument("String Not Found");
+        throw invalid_argument("String Already Exists");
+    }
+
+    if(size() == 0 || capacity() == 0)
+    {
+        hashSize++;
     }
 
     size_t index = compress(hash(v));
+    cout<<endl;
+    cout << "Index to add " << v << " = " << index << endl;
     array[index].add(v);
 
     hashSize++;
     underlyingCapcity++;
-
     return true;
 }
 
@@ -152,17 +157,12 @@ bool HashTable::remove(const Val &v)
         throw invalid_argument("Invalid string");
     }
 
-    if(search(v))
+    if(!search(v))
     {
-        throw invalid_argument("String Not Found");
+        throw invalid_argument("String Does Not Exist");
     }
 
-    if(size() == 0)
-    {
-        throw invalid_argument("Hash is empty");
-    }
-
-    if(capacity() == 0)
+    if(size() == 0 || capacity() == 0)
     {
         throw invalid_argument("Hash is empty");
     }
@@ -187,28 +187,22 @@ int HashTable::capacity() const
     return underlyingCapcity;
 }
 
+float HashTable::loadFactor() const
+{
+    float maxSize2 = maxSize;
+    float hashSize2 = underlyingCapcity;
+    return (hashSize2 / maxSize2 ) * 100;
+
+}
+
 // Display the contents of the Hash Table
 void HashTable::printTable(const string &label) const
 {
     cout << label << endl;
     for ( int i = 0; i < hashSize; i++ )
     {
-        cout << "Bucket " << i + 1 << ": ";
+        cout << "index " << i << ": ";
         array[i].printList();
     }
 }
-
-// Prints a histogram illustrating the Item distribution.
-//void HashTable::printHistogram()
-//{
-//    cout << "\n\nHash Table Contains ";
-//    cout << getNumberOfItems() << " Items total\n";
-//    for ( int i = 0; i < length; i++ )
-//    {
-//        cout << i + 1 << ":\t";
-//        for ( int j = 0; j < array[i].getLength(); j++ )
-//            cout << " X";
-//        cout << "\n";
-//    }
-//}
 
