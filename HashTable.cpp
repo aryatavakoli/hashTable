@@ -91,6 +91,10 @@ uint32_t HashTable::hash(const Val &key)
 
 size_t HashTable::compress(uint32_t hash) const
 {
+    if (size() == 0)
+    {
+        return hash % 1;
+    }
     return hash % hashSize;
 }
 
@@ -164,7 +168,7 @@ bool HashTable::remove(const Val &v)
     }
 
     size_t index = compress(hash(v));
-    array[index].remove( v );
+    array[index].remove(v);
 
     hashSize--;
     underlyingCapcity--;
