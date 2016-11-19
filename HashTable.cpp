@@ -118,6 +118,7 @@ bool HashTable::search(const Val &v)
     }
 
     size_t index = compress(hash(v));
+    cout << "Index to remove " << v << " = " << index << endl;
     auto result = array[index].search(v);
 
     return result;
@@ -168,6 +169,8 @@ bool HashTable::remove(const Val &v)
     }
 
     size_t index = compress(hash(v));
+    cout<<endl;
+    cout << "Index to remove " << v << " = " << index << endl;
     array[index].remove(v);
 
     hashSize--;

@@ -101,11 +101,11 @@ void hashTest()
 
     ht1.printTable("Table before Remove");
 
-    cout << "Removing bat..."<< endl;
-    ht1.remove("bat"); // remove
+    cout << "Removing ocelot..."<< endl;
+    ht1.remove("ocelot"); // remove
     cout<<endl;
-    cout << "Removing cat..."<< endl;
-    ht1.remove("cat");
+    cout << "Removing camel..."<< endl;
+    ht1.remove("camel");
     cout<<endl;
     cout << "Removing hippopotamus..."<< endl;
     ht1.remove("hippopotamus");
