@@ -37,13 +37,14 @@ HashTable::HashTable(int c)
         throw invalid_argument("Invalid number of Items ");
     }
 
-    maxSize = (2 * c)+1;
+    maxSize = (2 * c);
 
-    if(!isPrime(maxSize))
+    while(!isPrime(maxSize))
     {
-        throw invalid_argument("Not a Prime Number ");
+        maxSize++;
     }
 
+    cout << "Prime Number Greater than 2n = " << maxSize << endl;
     array = {make_unique<LinkedList[]>(maxSize)};
     hashSize = 0;
 }
@@ -66,7 +67,7 @@ uint32_t HashTable::hash(const Val &key)
     uint32_t coefficients[key.length()] = {};
     auto  degree = key.length();
     auto val = 37;
-    unsigned int ASCII = 96;
+    uint32_t ASCII = 96;
     uint32_t result;
 
     for (int i = 0; i < key.length(); i++)

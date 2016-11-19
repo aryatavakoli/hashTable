@@ -65,7 +65,11 @@ LinkedList& LinkedList::operator=(const LinkedList &ll)
 
 bool LinkedList::empty() const
 {
-    return listSize == 0;
+    if (listSize == 0)
+    {
+        return true;
+    }
+    return  false;
 }
 
 vector<Val> LinkedList::get() const
