@@ -76,12 +76,45 @@ void linkedListTest()
 
 void hashTest()
 {
-    HashTable h {9};
-    auto number = h.hash("Cat");
-    cout << "Hash Value = " << number << endl;
-    auto number2 =  h.compress(4164);
-    cout << "Compress Value = " << number2 << endl;
+    cout << "Creating HashTable ht1..."<< endl;
+    HashTable ht1 {9};
+    ht1.add("bat"); // add
+    ht1.add("cat");
+    ht1.add("rhinoceros");
+    ht1.add("ocelot");
+    ht1.add("elephant");
+    ht1.add("hippopotamus");
+    ht1.add("giraffe");
+    ht1.add("camel");
+    ht1.add("lion");
+    ht1.add("panther");
+    ht1.add("bear");
+    ht1.add("wolf");
+
+
+    cout<<endl;
+    cout << "Size of HashTable = " << ht1.size() << endl;
+    cout<<endl;
+
+    cout << "Size of Underlying Capicty = " << ht1.capacity() << endl;
+    cout<<endl;
+
+    ht1.printTable("Table before Remove");
+
+    cout << "Removing bat..."<< endl;
+    ht1.remove("bat"); // remove
+    cout<<endl;
+    cout << "Removing cat..."<< endl;
+    ht1.remove("cat");
+    cout<<endl;
+    cout << "Removing hippopotamus..."<< endl;
+    ht1.remove("hippopotamus");
+    cout << "profit?..."<< endl;
+
+    ht1.printTable("Table After Remove");
+
 }
+
 
 
 int main()

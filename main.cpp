@@ -75,7 +75,7 @@ void hashTableTest()
   ht1.add("bear");
   ht1.add("wolf");
 
-//  cout << "Load factor (should be around 63%): " << ht1.loadFactor() << endl; // loadFactor
+  cout << "Load factor (should be around 63%): " << ht1.loadFactor() << endl; // loadFactor
 
   // Test search
   cout << endl << "Search examples" << endl;
