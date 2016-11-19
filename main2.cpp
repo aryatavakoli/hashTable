@@ -74,8 +74,19 @@ void linkedListTest()
     ll2.printList();
 }
 
+void hashTest()
+{
+    HashTable h {9};
+    auto number = h.hash("Cat");
+    cout << "Hash Value = " << number << endl;
+    auto number2 =  h.compress(4164);
+    cout << "Compress Value = " << number2 << endl;
+}
+
+
 int main()
 {
     linkedListTest();
+    hashTest();
     return 0;
 }

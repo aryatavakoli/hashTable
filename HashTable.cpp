@@ -61,28 +61,38 @@ uint32_t hornerRule(uint32_t  poly[], auto degree , auto val) //val is going to 
     return result;
 }
 
-size_t HashTable::compress(uint32_t hash) const
-{
-    return hash % underlyingCapcity;
-}
-
 uint32_t HashTable::hash(const Val &key)
 {
     uint32_t coefficients[key.length()] = {};
-    auto  degree = key.length() - 1;
+    auto  degree = key.length();
     auto val = 37;
     unsigned int ASCII = 96;
     uint32_t result;
 
-    for (int i = 1; i < key.length(); i++)
+    for (int i = 0; i < key.length(); i++)
     {
         coefficients[i] = tolower(key[i]) - ASCII;
     }
 
+//    cout << "Coeffiecent of = " << key <<" ";
+//    for (int j = 0; j < degree ; ++j)
+//    {
+//        cout << coefficients[j] << ",";
+//    }
+
+    //cout << "\n";
     result = hornerRule(coefficients, degree , val);
+
+    //cout << "Hash Value of " << key << " = " << result << endl;
 
     return result;
 }
+
+size_t HashTable::compress(uint32_t hash) const
+{
+    return hash % hashSize;
+}
+
 
 bool isString(const Val &v)
 {
@@ -103,7 +113,7 @@ bool HashTable::search(const Val &v)
         throw invalid_argument("Invalid string");
     }
 
-    int index = hash( v );
+    size_t index = compress(hash(v));
     auto result = array[index].search(v);
 
     return result;
@@ -121,8 +131,8 @@ bool HashTable::add(const Val &v)
         throw invalid_argument("String Not Found");
     }
 
-    int index = hash(v);
-    array[index].add( v );
+    size_t index = compress(hash(v));
+    array[index].add(v);
 
     hashSize++;
     underlyingCapcity++;
@@ -152,7 +162,7 @@ bool HashTable::remove(const Val &v)
         throw invalid_argument("Hash is empty");
     }
 
-    int index = hash(v);
+    size_t index = compress(hash(v));
     array[index].remove( v );
 
     hashSize--;

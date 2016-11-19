@@ -81,8 +81,8 @@ void hashTableTest()
   cout << endl << "Search examples" << endl;
   string test1 = "frog";
   string test2 = "camel";
-//  cout << test1 << " (should be 0): " << ht1.search(test1) << endl;
-//  cout << test2 << " (should be 1): " << ht1.search(test2) << endl;
+  cout << test1 << " (should be 0): " << ht1.search(test1) << endl;
+  cout << test2 << " (should be 1): " << ht1.search(test2) << endl;
 
   // Test copy constructor and remove
 //  HashTable ht2 {ht1};
