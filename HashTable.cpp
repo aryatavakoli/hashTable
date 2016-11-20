@@ -2,6 +2,8 @@
 // Created by Arya on 2016-11-06.
 //
 
+#include <random>
+
 #include "HashTable.h"
 
 bool HashTable::isPrime( int n )
@@ -37,7 +39,7 @@ HashTable::HashTable(int c)
         throw invalid_argument("Invalid number of Items ");
     }
 
-    maxSize = (2 * c)+1;
+    underlyingCapcity = (2 * c)+1;
 
     if(!isPrime(maxSize))
     {
@@ -73,28 +75,33 @@ uint32_t HashTable::hash(const Val &key)
     {
         coefficients[i] = tolower(key[i]) - ASCII;
     }
-    cout << endl;
-    cout << "Coeffiecent of " << key <<" ";
-    for (int j = 0; j < degree ; ++j)
-    {
-        cout << coefficients[j] << ",";
-    }
+//    cout << endl;
+//    cout << "Coeffiecent of " << key <<" ";
+//    for (int j = 0; j < degree ; ++j)
+//    {
+//        cout << coefficients[j] << ",";
+//    }
 
-    cout << "\n";
+//    cout << "\n";
     result = hornerRule(coefficients, degree , val);
 
-    cout << "Hash Value of " << key << " = " << result << endl;
+//    cout << "Hash Value of " << key << " = " << result << endl;
 
     return result;
 }
 
 size_t HashTable::compress(uint32_t hash) const
 {
-    if(size() == 0)
-    {
-        return hash % 1;
-    }
-    return hash % hashSize;
+    //(a*hash) + b % N
+    srand(time(NULL));
+    int a = rand() %( underlyingCapcity-1) + 1; // must be > 0 and < N
+    int b = rand() % underlyingCapcity; // must be >= 0 and < N //correct
+
+//    cout << "underlying Capcity  = " << underlyingCapcity << endl;
+//    cout << "a = " << a << endl;
+//    cout << "b = " << b << endl;
+
+    return ((a*hash) + b) % underlyingCapcity ;
 }
 
 
@@ -118,7 +125,6 @@ bool HashTable::search(const Val &v)
     }
 
     size_t index = compress(hash(v));
-    cout << "Index to remove " << v << " = " << index << endl;
     auto result = array[index].search(v);
 
     return result;
@@ -136,18 +142,13 @@ bool HashTable::add(const Val &v)
         throw invalid_argument("String Already Exists");
     }
 
-    if(size() == 0 || capacity() == 0)
-    {
-        hashSize++;
-    }
 
     size_t index = compress(hash(v));
-    cout<<endl;
-    cout << "Index to add " << v << " = " << index << endl;
+//    cout<<endl;
+//    cout << "Index to add " << v << " = " << index << endl;
     array[index].add(v);
 
     hashSize++;
-    underlyingCapcity++;
     return true;
 }
 
@@ -169,12 +170,11 @@ bool HashTable::remove(const Val &v)
     }
 
     size_t index = compress(hash(v));
-    cout<<endl;
-    cout << "Index to remove " << v << " = " << index << endl;
+//    cout<<endl;
+//    cout << "Index to remove " << v << " = " << index << endl;
     array[index].remove(v);
 
     hashSize--;
-    underlyingCapcity--;
 
     return true;
 
@@ -190,10 +190,28 @@ int HashTable::capacity() const
     return underlyingCapcity;
 }
 
+void printVec(const vector<string>& vec) {
+    for (auto s : vec)
+        cout << s << " ";
+    cout << endl;
+}
+
+//vector<Val> HashTable::keys() const
+//{
+//    vector<Val> keys;
+//    for (int index = 0; index < hashSize ; ++index)
+//    {
+//        keys.push_back(array.get());
+//    }
+//
+//    printVec(keys);
+//    return keys;
+//}
+
 float HashTable::loadFactor() const
 {
-    float maxSize2 = maxSize;
-    float hashSize2 = underlyingCapcity;
+    float maxSize2 = underlyingCapcity;
+    float hashSize2 = hashSize;
     return (hashSize2 / maxSize2 ) * 100;
 
 }
@@ -202,7 +220,7 @@ float HashTable::loadFactor() const
 void HashTable::printTable(const string &label) const
 {
     cout << label << endl;
-    for ( int i = 0; i < hashSize; i++ )
+    for ( int i = 0; i < underlyingCapcity; i++ )
     {
         cout << "index " << i << ": ";
         array[i].printList();

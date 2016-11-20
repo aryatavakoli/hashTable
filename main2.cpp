@@ -14,11 +14,11 @@ using std::string;
 using std::vector;
 #include "HashTable.h"
 
-void printVec(const vector<string>& vec) {
-    for (auto s : vec)
-        cout << s << " ";
-    cout << endl;
-}
+//void printVec(const vector<string>& vec) {
+//    for (auto s : vec)
+//        cout << s << " ";
+//    cout << endl;
+//}
 
 void linkedListTest()
 {
@@ -91,27 +91,28 @@ void hashTest()
     ht1.add("bear");
     ht1.add("wolf");
 
-
-    cout<<endl;
+   // cout<<endl;
     cout << "Size of HashTable = " << ht1.size() << endl;
-    cout<<endl;
+    //cout<<endl;
 
     cout << "Size of Underlying Capicty = " << ht1.capacity() << endl;
-    cout<<endl;
+    //cout<<endl;
 
     ht1.printTable("Table before Remove");
 
     cout << "Removing ocelot..."<< endl;
     ht1.remove("ocelot"); // remove
-    cout<<endl;
+    //cout<<endl;
     cout << "Removing camel..."<< endl;
     ht1.remove("camel");
-    cout<<endl;
+    //cout<<endl;
     cout << "Removing hippopotamus..."<< endl;
     ht1.remove("hippopotamus");
     cout << "profit?..."<< endl;
 
     ht1.printTable("Table After Remove");
+
+    ht1.keys();
 
 }
 

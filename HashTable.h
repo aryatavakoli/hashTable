@@ -9,6 +9,9 @@
 #include <vector>
 #include <iostream>
 #include <cstddef>
+#include <cstdlib>
+#include <ctime>
+       /* time */
 
 #include "LinkedList.h"
 
@@ -24,7 +27,6 @@ using std::uint32_t;
 using std::size_t;
 using std::tolower;
 using std::isalpha;
-using std::size_t;
 
 class HashTable {
 public:

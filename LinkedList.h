@@ -5,8 +5,6 @@
 #include <string>
 #include <vector>
 #include <iostream>
-#include <cctype>
-#include <algorithm>
 
 using std::string;
 using std::unique_ptr;
@@ -15,8 +13,6 @@ using std::move;
 using std::cout;
 using std::endl;
 using std::vector;
-using std::tolower;
-using std::transform;
 
 using Val = string;
 
