@@ -9,9 +9,6 @@
 #include <vector>
 #include <iostream>
 #include <cstddef>
-#include <cstdlib>
-#include <ctime>
-       /* time */
 
 #include "LinkedList.h"
 

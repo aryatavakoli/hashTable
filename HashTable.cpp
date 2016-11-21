@@ -1,9 +1,6 @@
 //
 // Created by Arya on 2016-11-06.
 //
-
-#include <random>
-
 #include "HashTable.h"
 
 bool HashTable::isPrime( int n )
@@ -50,6 +47,7 @@ HashTable::HashTable(int c)
     hashSize = 0;
 }
 
+
 uint32_t hornerRule(uint32_t  poly[], auto degree , auto val) //val is going to be 37
 {
     auto result = poly[0];  // Initialize result
@@ -93,15 +91,15 @@ uint32_t HashTable::hash(const Val &key)
 size_t HashTable::compress(uint32_t hash) const
 {
     //(a*hash) + b % N
-    srand(time(NULL));
-    int a = rand() %( underlyingCapcity-1) + 1; // must be > 0 and < N
-    int b = rand() % underlyingCapcity; // must be >= 0 and < N //correct
+//    srand(time(NULL));
+//    int a = rand() %( underlyingCapcity-1) + 1; // must be > 0 and < N
+//    int b = rand() % underlyingCapcity; // must be >= 0 and < N //correct
 
 //    cout << "underlying Capcity  = " << underlyingCapcity << endl;
 //    cout << "a = " << a << endl;
 //    cout << "b = " << b << endl;
 
-    return ((a*hash) + b) % underlyingCapcity ;
+    return hash % underlyingCapcity ;
 }
 
 
@@ -177,7 +175,6 @@ bool HashTable::remove(const Val &v)
     hashSize--;
 
     return true;
-
 }
 
 int HashTable::size() const
@@ -198,14 +195,15 @@ void printVec(const vector<string>& vec) {
 
 //vector<Val> HashTable::keys() const
 //{
-//    vector<Val> keys;
-//    for (int index = 0; index < hashSize ; ++index)
+//    vector<Val> vec1;
+//    vector<Val> vec2;
+//    for (int index = 0; index < underlyingCapcity ; index++)
 //    {
-//        keys.push_back(array.get());
+//        vec1.insert
 //    }
 //
 //    printVec(keys);
-//    return keys;
+//    return vec1;
 //}
 
 float HashTable::loadFactor() const
