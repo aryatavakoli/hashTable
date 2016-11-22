@@ -66,7 +66,6 @@ private:
     bool isPrime( int n );
     int hashSize = 0;
     int underlyingCapcity = 0;
-    int maxSize = {defaultCapacity};
     unique_ptr<LinkedList[]> array;
 };
 

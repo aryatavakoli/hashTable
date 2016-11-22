@@ -12,13 +12,8 @@ using std::endl;
 using std::sort;
 using std::string;
 using std::vector;
-#include "HashTable.h"
 
-//void printVec(const vector<string>& vec) {
-//    for (auto s : vec)
-//        cout << s << " ";
-//    cout << endl;
-//}
+#include "HashTable.h"
 
 void linkedListTest()
 {
@@ -110,9 +105,20 @@ void hashTest()
     ht1.remove("hippopotamus");
     cout << "profit?..."<< endl;
 
+    ht1.remove("bat"); // add
+    ht1.remove("cat");
+    ht1.remove("rhinoceros");
+    ht1.remove("elephant");
+    ht1.remove("giraffe");
+    ht1.remove("lion");
+    ht1.remove("panther");
+    ht1.remove("bear");
+    ht1.remove("wolf");
+
+
     ht1.printTable("Table After Remove");
 
-    //ht1.keys();
+    ht1.keys();
 
 }
 

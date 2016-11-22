@@ -21,12 +21,48 @@ bool HashTable::isPrime( int n )
     return true;
 }
 
+HashTable::HashTable(const HashTable &ht)
+{
+    hashSize = ht.size();
+    underlyingCapcity = ht.capacity();
+    array = {make_unique<LinkedList[]>(underlyingCapcity)};
+    auto all_keys = ht.keys();
+
+    for (auto i = 0; i < all_keys.size() ; ++i)
+    {
+        add(all_keys[i]);
+    }
+}
+
+HashTable& HashTable::operator=(const HashTable &ht)
+{
+    if(this == &ht)
+    {
+        return *this;
+    }
+
+    auto current_keys = keys();
+
+    for (auto j = 0; j < current_keys.size(); j++)
+    {
+        remove(current_keys[j]);
+    }
+
+    auto new_keys = ht.keys();
+
+    for (auto i = 0; i < new_keys.size() ; i++)
+    {
+        add(new_keys[i]);
+    }
+
+    return *this;
+}
+
 HashTable::HashTable()
 {
-    maxSize = defaultCapacity;
-    array = {make_unique<LinkedList[]>(maxSize)};
+    underlyingCapcity = defaultCapacity;
+    array = {make_unique<LinkedList[]>(underlyingCapcity)};
     hashSize = 0;
-    underlyingCapcity = 0;
 }
 
 HashTable::HashTable(int c)
@@ -36,14 +72,14 @@ HashTable::HashTable(int c)
         throw invalid_argument("Invalid number of Items ");
     }
 
-    underlyingCapcity = (2 * c)+1;
+    underlyingCapcity = 2 * c;
 
-    if(!isPrime(maxSize))
+    while(!isPrime(underlyingCapcity))
     {
-        throw invalid_argument("Not a Prime Number ");
+        underlyingCapcity++;
     }
 
-    array = {make_unique<LinkedList[]>(maxSize)};
+    array = {make_unique<LinkedList[]>(underlyingCapcity)};
     hashSize = 0;
 }
 
@@ -105,7 +141,7 @@ size_t HashTable::compress(uint32_t hash) const
 
 bool isString(const Val &v)
 {
-    for (int i = 0; i < v.length() ; ++i)
+    for (int i = 0; i < v.length() ; i++)
     {
         if(!isalpha(v[i]))
         {
@@ -137,7 +173,7 @@ bool HashTable::add(const Val &v)
 
     if(search(v))
     {
-        throw invalid_argument("String Already Exists");
+        return false;
     }
 
 
@@ -159,7 +195,7 @@ bool HashTable::remove(const Val &v)
 
     if(!search(v))
     {
-        throw invalid_argument("String Does Not Exist");
+        return false;
     }
 
     if(size() == 0 || capacity() == 0)
@@ -187,24 +223,23 @@ int HashTable::capacity() const
     return underlyingCapcity;
 }
 
-void printVec(const vector<string>& vec) {
-    for (auto s : vec)
-        cout << s << " ";
-    cout << endl;
-}
+vector<Val> HashTable::keys() const
+{
+    vector<Val> vec1;
+    vector<Val> vec2;
+    for (int index = 0; index < underlyingCapcity ; index++)
+    {
+        vec2 = array[index].get();
 
-//vector<Val> HashTable::keys() const
-//{
-//    vector<Val> vec1;
-//    vector<Val> vec2;
-//    for (int index = 0; index < underlyingCapcity ; index++)
-//    {
-//        vec1.insert
-//    }
-//
-//    printVec(keys);
-//    return vec1;
-//}
+        for(auto val: vec2)
+        {
+            vec1.push_back(val);
+        }
+
+    }
+
+    return vec1;
+}
 
 float HashTable::loadFactor() const
 {
@@ -212,6 +247,26 @@ float HashTable::loadFactor() const
     float hashSize2 = hashSize;
     return (hashSize2 / maxSize2 ) * 100;
 
+}
+
+HashTable HashTable::setunion(const HashTable &ht) const
+{
+    auto unionSet = HashTable{};
+
+    auto keys1 = keys();
+    auto keys2 = ht.keys();
+
+    for (int i = 0; i < keys1.size(); i++)
+    {
+        unionSet.add(keys1[i]);
+    }
+
+    for (int j = 0; j < keys2.size(); ++j)
+    {
+        unionSet.add(keys2[j]);
+    }
+
+    return  unionSet;
 }
 
 // Display the contents of the Hash Table
