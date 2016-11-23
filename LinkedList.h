@@ -37,6 +37,7 @@ private:
 
 //LinkedList Class
 class LinkedList {
+    friend class HashTable;
 public:
     LinkedList() {}
 
